@@ -185,21 +185,24 @@ int main(int argc, char **argv) {
     //load times
     times_lists.clear();
     ifstream timeFile(times_path, std::ios::in);
-  
+
     if(timeFile.is_open())
     {
         double time = 0.0f;
         while(!timeFile.eof() )
         {
-            
+
             timeFile >>setprecision(12)>> time;
             times_lists.push_back(time);
         }
     }
+    // *read .bin files
+    // read_filelists( bin_path, file_lists, "bin" );
+    // sort_filelists( file_lists, "bin" );
+    // *read .ply files
+    read_filelists( bin_path, file_lists, "ply" );
+    sort_filelists( file_lists, "ply" );
 
-    read_filelists( bin_path, file_lists, "bin" );
-    sort_filelists( file_lists, "bin" );
-    
     for(int i =0;i<file_lists.size();i++)
     {
         std::cout << file_lists[i]<<std::endl;
@@ -211,7 +214,7 @@ int main(int argc, char **argv) {
     }
 
     std::cout <<"size:  "<< file_lists.size()<<"    "<<times_lists.size()<<endl;
-    
+
     rosbag::Bag bag;
     bag.open(output_dir + ".bag", rosbag::bagmode::Write);
 
@@ -241,6 +244,9 @@ int main(int argc, char **argv) {
         // input.close();
         // *read .ply files
         pcl::PointCloud<pcl::PointXYZI> points;
+        const size_t kMaxNumberOfPoints = 1e6;  // From the Readme of raw files.
+        points.clear();
+        points.reserve(kMaxNumberOfPoints);
         pcl::io::loadPLYFile<pcl::PointXYZI>(infile, points);
 
         ros::Time timestamp_ros(times_lists[iter]==0?  ros::TIME_MIN.toSec()  :times_lists[iter]);
