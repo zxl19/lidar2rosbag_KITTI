@@ -12,6 +12,7 @@
 #include <boost/program_options.hpp>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
+#include <pcl/io/ply_io.h>
 #include <pcl/conversions.h>
 #include <pcl/common/point_operators.h>
 #include <pcl/common/io.h>
@@ -259,7 +260,7 @@ int main(int argc, char **argv) {
         pcl::toROSMsg(points, output);
         output.header.stamp = timestamp_ros  ;
         output.header.frame_id = "velodyne";
-        
+
         pubLaserCloud.publish(output);
         std::cout<<"ros time : "<< output.header.stamp.toSec() <<"  with  "<<timestamp_ros.toSec()<<endl;
         bag.write("velodyne_points", timestamp_ros, output);
@@ -268,24 +269,23 @@ int main(int argc, char **argv) {
 
     printf("lidar 2 kitti rosbag done\n");
 
+    //  ros::Publisher pubBag = nh.advertise<sensor_msgs::PointCloud2>("/velodyne_points", 2);
+    //   rosbag::Bag bag;
+    //   bag.open("/data/KITTI/velodyne/04.bag", rosbag::bagmode::Read);
 
-//  ros::Publisher pubBag = nh.advertise<sensor_msgs::PointCloud2>("/velodyne_points", 2);
-//   rosbag::Bag bag;
-//   bag.open("/data/KITTI/velodyne/04.bag", rosbag::bagmode::Read);
+    // //load lidar rosbag
+    //   for(rosbag::MessageInstance const m: rosbag::View(bag))
+    //   {
+    //     auto begin_time = std::chrono::system_clock::now();
+    //     sensor_msgs::PointCloud2::ConstPtr i = m.instantiate<sensor_msgs::PointCloud2>();
+    //      if (i != NULL)
+    //        pubBag.publish( *i );
+    //     sleep(1);
+    //   }
 
-// //load lidar rosbag
-//   for(rosbag::MessageInstance const m: rosbag::View(bag))
-//   {
-//     auto begin_time = std::chrono::system_clock::now();
-//     sensor_msgs::PointCloud2::ConstPtr i = m.instantiate<sensor_msgs::PointCloud2>();
-//      if (i != NULL)
-//        pubBag.publish( *i );
-//     sleep(1);
-//   }
+    //   bag.close();
 
-//   bag.close();
+    //ros::spin();
 
-  //ros::spin();
-
-  return 0;
+    return 0;
 }
