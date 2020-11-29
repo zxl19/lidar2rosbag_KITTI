@@ -219,26 +219,29 @@ int main(int argc, char **argv) {
     for(int iter=0;iter<file_lists.size();iter++)
     {
         std::string infile = bin_path + file_lists[iter];
-        ifstream input(infile.c_str(), ios::in | ios::binary);
-        if(!input.is_open() ){
-            cerr << "Could not read file: " << infile << endl;
-            return -1;
-        }
-        // pcl::PointCloud<PointXYZI>::Ptr points (new pcl::PointCloud<PointXYZI>);
-        pcl::PointCloud<pcl::PointXYZI> points;
-        const size_t kMaxNumberOfPoints = 1e6;  // From the Readme of raw files.
-        points.clear();
-        points.reserve(kMaxNumberOfPoints);
+        // *read .bin files
+        // ifstream input(infile.c_str(), ios::in | ios::binary);
+        // if(!input.is_open() ){
+        //     cerr << "Could not read file: " << infile << endl;
+        //     return -1;
+        // }
+        // // pcl::PointCloud<PointXYZI>::Ptr points (new pcl::PointCloud<PointXYZI>);
+        // pcl::PointCloud<pcl::PointXYZI> points;
+        // const size_t kMaxNumberOfPoints = 1e6;  // From the Readme of raw files.
+        // points.clear();
+        // points.reserve(kMaxNumberOfPoints);
 
-        int i;
-        for (i=0; input.is_open() && !input.eof(); i++) {
-            PointXYZI point;
-            
-            input.read((char *) &point.x, 3*sizeof(float));
-            input.read((char *) &point.intensity, sizeof(float));
-            points.push_back(point);
-        }
-        input.close();
+        // int i;
+        // for (i=0; input.is_open() && !input.eof(); i++) {
+        //     PointXYZI point;
+        //     input.read((char *) &point.x, 3*sizeof(float));
+        //     input.read((char *) &point.intensity, sizeof(float));
+        //     points.push_back(point);
+        // }
+        // input.close();
+        // *read .ply files
+        pcl::PointCloud<pcl::PointXYZI> points;
+        pcl::io::loadPLYFile<pcl::PointXYZI>(infile, points);
 
         ros::Time timestamp_ros(times_lists[iter]==0?  ros::TIME_MIN.toSec()  :times_lists[iter]);
        // timestampToRos(times_lists[iter], &timestamp_ros);
