@@ -8,7 +8,7 @@
 #include<chrono>
 #include<sstream>
 #include<string>
- 
+
 #include <boost/program_options.hpp>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
@@ -105,7 +105,6 @@ void Benchmark2TUM(const string &num)
         double time = 0.0f;
         while(!ft.eof() )
         {
-            
             ft >>setprecision(12)>> time;
             t_lists.push_back(time);
         }
@@ -114,7 +113,7 @@ void Benchmark2TUM(const string &num)
         printf("no times file\n");
     }
     ft.close();
-     
+
     if(f.is_open()  )
     {
         int i=0;
@@ -145,7 +144,7 @@ void Benchmark2TUM(const string &num)
     	}
 
 
-    	f.close();	
+    	f.close();
     }
     else
     	printf("ERROR: can not find the benchmark file!\n");
@@ -157,17 +156,17 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "lidar2rosbag");
     ros::NodeHandle nh;
 
-  //temp:process benchmark
-//   for(int i=0;i<=10;i++)
-//   {
-//     std::string _num ;
-//     if(i<10)
-//         _num= "0" + std::to_string(i);
-//     else
-//         _num="10";
-//     Benchmark2TUM(_num); // useless, have to pass full name
-//     printf("process  %d, \n", i);
-//   }
+    // temp:process benchmark
+    // for (int i = 0; i <= 10; i++)
+    // {
+    //     std::string _num;
+    //     if (i < 10)
+    //         _num = "0" + std::to_string(i);
+    //     else
+    //         _num = "10";
+    //     Benchmark2TUM(_num); // useless, have to pass full name
+    //     printf("process  %d, \n", i);
+    // }
 
     if(argc<3)
     {
