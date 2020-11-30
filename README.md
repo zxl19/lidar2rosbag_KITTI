@@ -5,7 +5,7 @@ How to build with catkin:
 $ cd ~/catkin_ws/src/
 $ git clone  git@github.com:AbnerCSZ/lidar2rosbag_KITTI.git
 $ cd ~/catkin_ws
-$ catkin_make -DCMAKE_BUILD_TYPE=Release 
+$ catkin_make -DCMAKE_BUILD_TYPE=Release
 $ source ~/catkin_ws/devel/setup.bash
 ```
 
