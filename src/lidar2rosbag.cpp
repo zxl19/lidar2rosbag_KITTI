@@ -263,7 +263,7 @@ int main(int argc, char **argv) {
 
         pubLaserCloud.publish(output);
         std::cout<<"ros time : "<< output.header.stamp.toSec() <<"  with  "<<timestamp_ros.toSec()<<endl;
-        bag.write("velodyne_points", timestamp_ros, output);
+        bag.write("/velodyne_points", timestamp_ros, output);
 
     }
 
