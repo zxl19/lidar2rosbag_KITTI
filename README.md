@@ -1,3 +1,8 @@
+# lidar2rosbag_ply
+
+Convert `.ply` pointcloud to rosbag. The rest remains the same as the original repository.
+
+------
 
 How to build with catkin:
 
@@ -37,4 +42,3 @@ or
 rosrun lidar2rosbag lidar2rosbag /data/KITTI/dataset/sequences/01/ bag01
 ```
 and so on...
-
